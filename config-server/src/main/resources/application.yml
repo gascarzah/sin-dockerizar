@@ -1,0 +1,38 @@
+server:
+  port: 7777
+
+spring:
+  profiles:
+    active: default
+  application:
+    name: config-server
+
+  cloud:
+    config:
+      server:
+        git:
+          uri: git@github.com:gascarzah/microservices-config.git
+          default-label: main
+          clone-on-start: true
+#          username: gascarzah
+#          password: ${GIT_TOKEN}
+          ignore-local-ssh-settings: true
+          host-key-algorithm: ecdsa-sha2-nistp256
+          host-key: AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBEmKSENjQEezOmxkZMy7opKgwFB9nkt5YRrYMjNuG5N87uRgg6CLrbo5wAdT/y6v0mKV0U2w0WZ2YB/++Tpockg=
+          private-key: |
+           -----BEGIN EC PRIVATE KEY-----
+           Proc-Type: 4,ENCRYPTED
+           DEK-Info: AES-128-CBC,BF2CE6324CF4E35088E5E2E8588BA158
+
+           Enw+GrJTgkJiQXI5YIPgo0nLiWW7LyO6Lg9oqgyRYY+d5vhC11Rfype7pn/phaSq
+           vUlGs2h4mhKq1JQpOCTiU48ya5TOLCMzVd6Tlm/1C030iqms4r3jhvN/Wcy2ohkD
+           L0OBUn73n9QqYXbj7JFOfOnnUmbrVnwu+3d3eGQllWs=
+           -----END EC PRIVATE KEY-----
+          
+          passphrase: Ascarz@2hweb
+eureka:
+  instance:
+    instance-id: "${spring.application.name}:${random.value}"
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
